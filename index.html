@@ -278,6 +278,78 @@
     </style>
 </head>
 <body>
+    <!-- BCG Toolkit Header Banner -->
+<!-- Add this IMMEDIATELY after the opening <body> tag in each tool -->
+
+<div class="bcg-toolkit-banner">
+    <div class="banner-content">
+        <span class="banner-text">📚 Part of the <strong>BCG Portfolio Toolkit</strong></span>
+        <a href="https://bkgenealogy.github.io/" class="banner-link">View All Tools →</a>
+    </div>
+</div>
+
+<style>
+    .bcg-toolkit-banner {
+        background: linear-gradient(135deg, #5c4033 0%, #8b6f47 100%);
+        color: white;
+        padding: 12px 20px;
+        text-align: center;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        font-family: Georgia, 'Times New Roman', serif;
+    }
+    
+    .banner-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    
+    .banner-text {
+        font-size: 14px;
+        opacity: 0.95;
+    }
+    
+    .banner-text strong {
+        font-weight: bold;
+    }
+    
+    .banner-link {
+        background: rgba(255, 255, 255, 0.2);
+        color: white;
+        padding: 6px 15px;
+        text-decoration: none;
+        border-radius: 4px;
+        font-size: 13px;
+        font-weight: bold;
+        transition: all 0.3s ease;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+    
+    .banner-link:hover {
+        background: rgba(255, 255, 255, 0.3);
+        transform: translateY(-1px);
+    }
+    
+    @media (max-width: 600px) {
+        .banner-content {
+            flex-direction: column;
+            text-align: center;
+        }
+        
+        .banner-text {
+            font-size: 13px;
+        }
+    }
+</style>
+
+<!-- End BCG Toolkit Header Banner -->
     <div class="container">
         <h1>Digital Correspondence Transcriber</h1>
         <p class="subtitle">BCG Standards • Evidence Explained Format • With Citation Generator • Created for Bernie Krause • v1.0</p>
