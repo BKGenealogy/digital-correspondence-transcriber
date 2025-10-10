@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Digital Correspondence Transcriber</title>
+    <title>✉️ Digital Correspondence Transcriber | BK Genealogy</title>
     <style>
         * {
             margin: 0;
@@ -16,83 +16,70 @@
             background: linear-gradient(135deg, #f5f1e8 0%, #e8dcc8 100%);
             padding: 20px;
             line-height: 1.6;
+            color: #5c4033;
         }
         
         .container {
             max-width: 1200px;
             margin: 0 auto;
             background: white;
-            padding: 30px;
+            padding: 40px;
             border-radius: 10px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.1);
         }
         
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 3px solid #8b6f47;
+            padding-bottom: 20px;
+        }
+        
         h1 {
             color: #5c4033;
-            text-align: center;
-            margin-bottom: 10px;
             font-size: 32px;
-            border-bottom: 3px solid #8b6f47;
-            padding-bottom: 15px;
+            margin-bottom: 10px;
         }
         
         .subtitle {
-            text-align: center;
             color: #8b6f47;
             font-style: italic;
-            margin-bottom: 30px;
             font-size: 16px;
-        }
-        
-        .tabs {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 30px;
-            border-bottom: 2px solid #d4c4a8;
-            padding-bottom: 10px;
-        }
-        
-        .tab {
-            padding: 12px 20px;
-            background: #f5f1e8;
-            border: 2px solid #d4c4a8;
-            border-radius: 5px 5px 0 0;
-            cursor: pointer;
-            transition: all 0.3s;
-            color: #5c4033;
-            font-weight: bold;
-            font-size: 13px;
-        }
-        
-        .tab:hover {
-            background: #e8dcc8;
-        }
-        
-        .tab.active {
-            background: #8b6f47;
-            color: white;
-            border-color: #8b6f47;
-        }
-        
-        .form-section {
-            display: none;
-        }
-        
-        .form-section.active {
-            display: block;
         }
         
         .instructions {
             background: #fff8e7;
             border-left: 4px solid #8b6f47;
             padding: 15px;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
             font-size: 14px;
         }
         
-        .form-group {
+        .section {
+            margin-bottom: 30px;
+            padding: 25px;
+            background: #f9f6f0;
+            border: 2px solid #d4c4a8;
+            border-radius: 8px;
+        }
+        
+        .section h2 {
+            color: #5c4033;
+            font-size: 22px;
             margin-bottom: 15px;
+            border-bottom: 2px solid #d4c4a8;
+            padding-bottom: 8px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
         }
         
         label {
@@ -103,10 +90,15 @@
             font-size: 14px;
         }
         
+        .required {
+            color: #c44;
+        }
+        
         input[type="text"],
+        input[type="email"],
         input[type="date"],
         input[type="time"],
-        input[type="url"],
+        textarea,
         select {
             width: 100%;
             padding: 10px;
@@ -114,1092 +106,585 @@
             border-radius: 5px;
             font-family: Georgia, serif;
             font-size: 14px;
+            background: white;
+        }
+        
+        textarea {
+            min-height: 120px;
+            resize: vertical;
         }
         
         input:focus,
-        select:focus,
-        textarea:focus {
+        textarea:focus,
+        select:focus {
             outline: none;
             border-color: #8b6f47;
         }
         
-        textarea {
-            width: 100%;
-            min-height: 300px;
-            padding: 15px;
-            border: 2px solid #d4c4a8;
-            border-radius: 5px;
-            font-family: 'Courier New', monospace;
-            font-size: 13px;
-            line-height: 1.6;
-            resize: vertical;
-        }
-        
-        .message-thread {
-            background: #f9f6f0;
-            border: 2px solid #d4c4a8;
-            border-radius: 5px;
-            padding: 15px;
-            margin-bottom: 15px;
-        }
-        
-        .message-entry {
+        .thread-entry {
             background: white;
-            border-left: 3px solid #8b6f47;
-            padding: 10px;
-            margin-bottom: 10px;
-            border-radius: 3px;
-        }
-        
-        .message-header {
-            color: #5c4033;
-            font-weight: bold;
-            margin-bottom: 5px;
-            font-size: 13px;
-        }
-        
-        .helper-buttons {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
+            padding: 15px;
+            border: 1px solid #d4c4a8;
+            border-radius: 5px;
             margin-bottom: 15px;
         }
         
-        .helper-btn {
-            background: #d4c4a8;
-            color: #5c4033;
-            padding: 6px 12px;
-            border: none;
-            border-radius: 3px;
-            cursor: pointer;
-            font-size: 12px;
-            transition: background 0.3s;
+        .thread-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #d4c4a8;
         }
         
-        .helper-btn:hover {
-            background: #8b6f47;
-            color: white;
+        .sender-info {
+            font-weight: bold;
+            color: #8b6f47;
+        }
+        
+        .message-meta {
+            color: #8b6f47;
+            font-size: 12px;
         }
         
         .add-message-btn {
-            background: #8b6f47;
-            color: white;
+            background: #d4c4a8;
+            color: #5c4033;
             padding: 10px 20px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
             font-size: 14px;
             font-weight: bold;
-            margin-bottom: 15px;
+            font-family: Georgia, serif;
+            transition: background 0.3s;
+            margin-top: 10px;
         }
         
         .add-message-btn:hover {
-            background: #5c4033;
-        }
-        
-        .generate-btn {
             background: #8b6f47;
             color: white;
-            padding: 15px 30px;
+        }
+        
+        .attachment-list {
+            background: #fff8e7;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+            font-size: 13px;
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 30px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        button {
+            background: #8b6f47;
+            color: white;
+            padding: 12px 25px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            font-size: 16px;
+            font-size: 14px;
             font-weight: bold;
-            width: 100%;
-            margin-top: 20px;
+            font-family: Georgia, serif;
             transition: background 0.3s;
         }
         
-        .generate-btn:hover {
+        button:hover {
             background: #5c4033;
         }
         
-        .output-section {
+        .preview-section {
             margin-top: 30px;
+            padding: 25px;
+            background: white;
+            border: 2px solid #8b6f47;
+            border-radius: 8px;
             display: none;
         }
         
-        .output-section.show {
+        .preview-section.active {
             display: block;
         }
         
-        .output-box {
-            background: #f9f6f0;
-            border: 2px solid #8b6f47;
-            border-radius: 5px;
-            padding: 20px;
+        .preview-section h2 {
+            color: #5c4033;
             margin-bottom: 20px;
+            border-bottom: 2px solid #d4c4a8;
+            padding-bottom: 10px;
         }
         
-        .output-box h3 {
+        .preview-metadata {
+            background: #f9f6f0;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+        
+        .preview-metadata p {
+            margin-bottom: 5px;
+        }
+        
+        .preview-thread {
+            margin-top: 20px;
+        }
+        
+        .preview-message {
+            background: #f9f6f0;
+            padding: 20px;
+            border-left: 4px solid #8b6f47;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+        
+        .preview-message-header {
+            font-weight: bold;
             color: #5c4033;
             margin-bottom: 10px;
-            font-size: 18px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #d4c4a8;
         }
         
-        .output-text {
-            color: #333;
-            font-size: 13px;
-            line-height: 1.8;
-            margin-bottom: 15px;
-            font-family: 'Courier New', monospace;
-            white-space: pre-wrap;
-            background: white;
-            padding: 15px;
-            border-radius: 3px;
-            max-height: 400px;
-            overflow-y: auto;
-        }
-        
-        .copy-btn {
-            background: #5c4033;
-            color: white;
-            padding: 8px 15px;
-            border: none;
-            border-radius: 3px;
-            cursor: pointer;
+        .preview-message-meta {
+            color: #8b6f47;
             font-size: 12px;
-            transition: background 0.3s;
+            margin-bottom: 10px;
         }
         
-        .copy-btn:hover {
-            background: #8b6f47;
+        .preview-message-body {
+            line-height: 1.8;
+            margin-top: 10px;
+        }
+        
+        /* Print Styles */
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            
+            .container {
+                box-shadow: none;
+                padding: 0;
+                max-width: 100%;
+            }
+            
+            .instructions,
+            .button-group,
+            .section,
+            .add-message-btn {
+                display: none;
+            }
+            
+            .preview-section {
+                display: block !important;
+                border: none;
+                padding: 0;
+            }
+            
+            .preview-section h2 {
+                page-break-after: avoid;
+            }
+            
+            .preview-metadata {
+                page-break-after: avoid;
+            }
+            
+            .preview-message {
+                page-break-inside: avoid;
+            }
+            
+            header {
+                page-break-after: avoid;
+            }
         }
         
         @media (max-width: 768px) {
-            .tabs {
-                font-size: 11px;
+            .form-row {
+                grid-template-columns: 1fr;
             }
-            .tab {
-                padding: 8px 12px;
+            
+            .container {
+                padding: 20px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- BCG Toolkit Header Banner -->
-<!-- Add this IMMEDIATELY after the opening <body> tag in each tool -->
-
-<div class="bcg-toolkit-banner">
-    <div class="banner-content">
-        <span class="banner-text">📚 Part of the <strong>BCG Portfolio Toolkit</strong></span>
-        <a href="https://bkgenealogy.github.io/" class="banner-link">View All Tools →</a>
-    </div>
-</div>
-
-<style>
-    .bcg-toolkit-banner {
-        background: linear-gradient(135deg, #5c4033 0%, #8b6f47 100%);
-        color: white;
-        padding: 12px 20px;
-        text-align: center;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        position: sticky;
-        top: 0;
-        z-index: 1000;
-        font-family: Georgia, 'Times New Roman', serif;
-    }
-    
-    .banner-content {
-        max-width: 1200px;
-        margin: 0 auto;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 10px;
-    }
-    
-    .banner-text {
-        font-size: 14px;
-        opacity: 0.95;
-    }
-    
-    .banner-text strong {
-        font-weight: bold;
-    }
-    
-    .banner-link {
-        background: rgba(255, 255, 255, 0.2);
-        color: white;
-        padding: 6px 15px;
-        text-decoration: none;
-        border-radius: 4px;
-        font-size: 13px;
-        font-weight: bold;
-        transition: all 0.3s ease;
-        border: 1px solid rgba(255, 255, 255, 0.3);
-    }
-    
-    .banner-link:hover {
-        background: rgba(255, 255, 255, 0.3);
-        transform: translateY(-1px);
-    }
-    
-    @media (max-width: 600px) {
-        .banner-content {
-            flex-direction: column;
-            text-align: center;
-        }
-        
-        .banner-text {
-            font-size: 13px;
-        }
-    }
-</style>
-
-<!-- End BCG Toolkit Header Banner -->
     <div class="container">
-        <h1>Digital Correspondence Transcriber</h1>
-        <p class="subtitle">BCG Standards • Evidence Explained Format • With Citation Generator • Created for Bernie Krause • v1.0</p>
+        <header>
+            <h1>✉️ Digital Correspondence Transcriber</h1>
+            <p class="subtitle">Email, Social Media & Digital Message Archiving</p>
+        </header>
         
         <div class="instructions">
-            <strong>Instructions:</strong> Select the type of digital correspondence below, fill in the metadata, paste or type the message content, and generate both a properly formatted transcription AND an Evidence Explained citation. Perfect for documenting genealogical information received via email, text, social media, or DNA match messaging.
+            <strong>Instructions:</strong> Use this tool to preserve digital correspondence for genealogical research. Archive emails, social media messages, texts, and other digital communications. Include complete metadata and maintain conversation threads for future reference.
         </div>
         
-        <div class="tabs">
-            <div class="tab active" data-tab="email">Email</div>
-            <div class="tab" data-tab="ancestry">Ancestry Messages</div>
-            <div class="tab" data-tab="text">Text/SMS</div>
-            <div class="tab" data-tab="facebook">Facebook/Messenger</div>
-            <div class="tab" data-tab="whatsapp">WhatsApp</div>
-            <div class="tab" data-tab="social">Social Media DM</div>
-            <div class="tab" data-tab="forum">Forum/Message Board</div>
-            <div class="tab" data-tab="zoom">Video Call Notes</div>
-        </div>
-        
-        <!-- Email Form -->
-        <div class="form-section active" id="email-form">
-            <div class="form-group">
-                <label>From (Sender Name & Email):</label>
-                <input type="text" id="email-from" placeholder="John Smith <johnsmith@email.com>">
-            </div>
-            <div class="form-group">
-                <label>To (Your Name & Email):</label>
-                <input type="text" id="email-to" placeholder="Bernie Krause <bernie@genealogy.com>">
-            </div>
-            <div class="form-group">
-                <label>Subject Line:</label>
-                <input type="text" id="email-subject" placeholder="Smith Family Information">
-            </div>
-            <div class="form-group">
-                <label>Date Sent:</label>
-                <input type="date" id="email-date">
-            </div>
-            <div class="form-group">
-                <label>Time Sent (optional):</label>
-                <input type="time" id="email-time">
-            </div>
-            <div class="form-group">
-                <label>Email Content:</label>
-                <textarea id="email-content" placeholder="Paste the full email message here, including any quoted previous messages in the thread.
-
-Example:
-Hi Bernie,
-
-I found some information about our Smith ancestors. My grandmother told me that John Smith was born in 1845 in Kentucky, not Ohio like we thought. She also mentioned he served in the Civil War with the 5th Kentucky Infantry.
-
-I have a photo of him in uniform that I can scan and send you.
-
-Let me know if you need anything else!
-
-John"></textarea>
-            </div>
-            <div class="form-group">
-                <label>Attachments (if any):</label>
-                <input type="text" id="email-attachments" placeholder="photo_john_smith.jpg, family_bible_page.pdf">
-            </div>
-            <div class="form-group">
-                <label>Storage Location:</label>
-                <input type="text" id="email-storage" placeholder="Saved in researcher's email archive; printed copy in research files">
-            </div>
-        </div>
-        
-        <!-- Ancestry Messages Form -->
-        <div class="form-section" id="ancestry-form">
-            <div class="form-group">
-                <label>From (Sender's Ancestry Username):</label>
-                <input type="text" id="ancestry-from" placeholder="JohnSmith1955">
-            </div>
-            <div class="form-group">
-                <label>From (Sender's Real Name, if known):</label>
-                <input type="text" id="ancestry-fromname" placeholder="John Smith">
-            </div>
-            <div class="form-group">
-                <label>To (Your Ancestry Username):</label>
-                <input type="text" id="ancestry-to" placeholder="BKGenealogy">
-            </div>
-            <div class="form-group">
-                <label>Message Subject:</label>
-                <input type="text" id="ancestry-subject" placeholder="DNA Match - Smith Family">
-            </div>
-            <div class="form-group">
-                <label>Date Sent:</label>
-                <input type="date" id="ancestry-date">
-            </div>
-            <div class="form-group">
-                <label>Message Content:</label>
-                <textarea id="ancestry-content" placeholder="Paste the Ancestry message content here.
-
-Example:
-Hi! We match as 4th cousins on Ancestry. I think we share the Smith line from Kentucky. My great-grandfather was William Smith, born 1880 in Pulaski County. Do you have any information about his parents? I've hit a brick wall trying to find them.
-
-Looking forward to connecting!"></textarea>
-            </div>
-            <div class="form-group">
-                <label>Connection Type:</label>
-                <select id="ancestry-connection">
-                    <option value="DNA Match">DNA Match</option>
-                    <option value="Family Tree Message">Family Tree Message</option>
-                    <option value="Group Message">Group Message</option>
-                    <option value="Other">Other</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label>Shared Match/Tree Info (if relevant):</label>
-                <input type="text" id="ancestry-match" placeholder="DNA match: 42 cM shared across 2 segments">
-            </div>
-            <div class="form-group">
-                <label>Storage Location:</label>
-                <input type="text" id="ancestry-storage" placeholder="Screenshot saved in research files; original in Ancestry message archive">
-            </div>
-        </div>
-        
-        <!-- Text/SMS Form -->
-        <div class="form-section" id="text-form">
-            <div class="form-group">
-                <label>Conversation With:</label>
-                <input type="text" id="text-person" placeholder="Mary Smith (cousin)">
-            </div>
-            <div class="form-group">
-                <label>Phone Numbers:</label>
-                <input type="text" id="text-numbers" placeholder="From: (555) 123-4567, To: (555) 987-6543">
-            </div>
-            <div class="form-group">
-                <label>Date of Conversation:</label>
-                <input type="date" id="text-date">
-            </div>
-            <div class="form-group">
-                <label>Message Type:</label>
-                <select id="text-type">
-                    <option value="SMS">SMS (Text Message)</option>
-                    <option value="iMessage">iMessage</option>
-                    <option value="Other">Other</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label>Conversation Thread:</label>
-                <textarea id="text-content" placeholder="Transcribe the text conversation here. Use format:
-
-[10:23 AM] Bernie Krause: Hi Mary! Do you remember Grandma talking about where her parents were from?
-
-[10:25 AM] Mary Smith: Yes! She said her mother came from Ireland in 1890. County Cork I think.
-
-[10:27 AM] Bernie Krause: Do you know her maiden name?
-
-[10:30 AM] Mary Smith: It was O'Brien. Margaret O'Brien."></textarea>
-            </div>
-            <div class="form-group">
-                <label>Photos/Attachments Shared:</label>
-                <input type="text" id="text-attachments" placeholder="Photo of family Bible sent at 10:35 AM">
-            </div>
-            <div class="form-group">
-                <label>Storage Location:</label>
-                <input type="text" id="text-storage" placeholder="Screenshots saved in research files; original on iPhone">
-            </div>
-        </div>
-        
-        <!-- Facebook/Messenger Form -->
-        <div class="form-section" id="facebook-form">
-            <div class="form-group">
-                <label>From (Sender's Name):</label>
-                <input type="text" id="facebook-from" placeholder="Sarah Johnson">
-            </div>
-            <div class="form-group">
-                <label>To (Your Name):</label>
-                <input type="text" id="facebook-to" placeholder="Bernie Krause">
-            </div>
-            <div class="form-group">
-                <label>Platform:</label>
-                <select id="facebook-platform">
-                    <option value="Facebook Messenger">Facebook Messenger</option>
-                    <option value="Facebook Comment">Facebook Comment</option>
-                    <option value="Facebook Post">Facebook Post</option>
-                    <option value="Facebook Group">Facebook Group</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label>Date:</label>
-                <input type="date" id="facebook-date">
-            </div>
-            <div class="form-group">
-                <label>Message/Post Content:</label>
-                <textarea id="facebook-content" placeholder="Paste Facebook message or post content here.
-
-Example from Messenger:
-Hey Bernie! I saw your post in the Smith Family Genealogy group. I think we might be related! My great-grandmother was Emma Smith from St. Louis. She married a Jones. Do you have any information about the Smith family there in the 1920s?"></textarea>
-            </div>
-            <div class="form-group">
-                <label>Group/Page Name (if applicable):</label>
-                <input type="text" id="facebook-group" placeholder="Smith Family Genealogy Research Group">
-            </div>
-            <div class="form-group">
-                <label>Storage Location:</label>
-                <input type="text" id="facebook-storage" placeholder="Screenshot saved in research files; archived in Facebook Messenger">
-            </div>
-        </div>
-        
-        <!-- WhatsApp Form -->
-        <div class="form-section" id="whatsapp-form">
-            <div class="form-group">
-                <label>Chat With:</label>
-                <input type="text" id="whatsapp-person" placeholder="Uncle Robert Smith">
-            </div>
-            <div class="form-group">
-                <label>Phone Numbers:</label>
-                <input type="text" id="whatsapp-numbers" placeholder="Contact: +1-555-123-4567">
-            </div>
-            <div class="form-group">
-                <label>Date of Chat:</label>
-                <input type="date" id="whatsapp-date">
-            </div>
-            <div class="form-group">
-                <label>Chat Type:</label>
-                <select id="whatsapp-type">
-                    <option value="Individual Chat">Individual Chat</option>
-                    <option value="Group Chat">Group Chat</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label>Group Name (if applicable):</label>
-                <input type="text" id="whatsapp-group" placeholder="Smith Family History Chat">
-            </div>
-            <div class="form-group">
-                <label>Conversation:</label>
-                <textarea id="whatsapp-content" placeholder="Transcribe WhatsApp conversation:
-
-[3/15/25, 2:30 PM] Bernie Krause: Uncle Robert, do you remember where Grandpa was born?
-
-[3/15/25, 2:35 PM] Robert Smith: I think it was in Kentucky, somewhere near Louisville. Maybe Shelby County?
-
-[3/15/25, 2:40 PM] Bernie Krause: Do you know the year?
-
-[3/15/25, 2:42 PM] Robert Smith: Around 1920 I believe. Mom would know for sure."></textarea>
-            </div>
-            <div class="form-group">
-                <label>Storage Location:</label>
-                <input type="text" id="whatsapp-storage" placeholder="Chat exported from WhatsApp; saved in research files">
-            </div>
-        </div>
-        
-        <!-- Social Media DM Form -->
-        <div class="form-section" id="social-form">
-            <div class="form-group">
-                <label>Platform:</label>
-                <select id="social-platform">
-                    <option value="Instagram">Instagram</option>
-                    <option value="Twitter/X">Twitter/X</option>
-                    <option value="LinkedIn">LinkedIn</option>
-                    <option value="TikTok">TikTok</option>
-                    <option value="Other">Other</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label>From (Username):</label>
-                <input type="text" id="social-from" placeholder="@smithfamily1890">
-            </div>
-            <div class="form-group">
-                <label>From (Real Name, if known):</label>
-                <input type="text" id="social-fromname" placeholder="Jennifer Smith">
-            </div>
-            <div class="form-group">
-                <label>To (Your Username):</label>
-                <input type="text" id="social-to" placeholder="@bkgenealogy">
-            </div>
-            <div class="form-group">
-                <label>Date:</label>
-                <input type="date" id="social-date">
-            </div>
-            <div class="form-group">
-                <label>Message Content:</label>
-                <textarea id="social-content" placeholder="Paste direct message content here."></textarea>
-            </div>
-            <div class="form-group">
-                <label>Storage Location:</label>
-                <input type="text" id="social-storage" placeholder="Screenshot saved in research files">
-            </div>
-        </div>
-        
-        <!-- Forum/Message Board Form -->
-        <div class="form-section" id="forum-form">
-            <div class="form-group">
-                <label>Forum/Board Name:</label>
-                <input type="text" id="forum-name" placeholder="GenForum - Smith Family">
-            </div>
-            <div class="form-group">
-                <label>Thread Title:</label>
-                <input type="text" id="forum-thread" placeholder="Looking for John Smith b. 1845 Kentucky">
-            </div>
-            <div class="form-group">
-                <label>Original Poster Username:</label>
-                <input type="text" id="forum-poster" placeholder="genealogyfan123">
-            </div>
-            <div class="form-group">
-                <label>Original Poster Name (if known):</label>
-                <input type="text" id="forum-postername" placeholder="Jane Smith">
-            </div>
-            <div class="form-group">
-                <label>Date Posted:</label>
-                <input type="date" id="forum-date">
-            </div>
-            <div class="form-group">
-                <label>Thread URL:</label>
-                <input type="url" id="forum-url" placeholder="https://genforum.genealogy.com/smith/messages/12345.html">
-            </div>
-            <div class="form-group">
-                <label>Message/Thread Content:</label>
-                <textarea id="forum-content" placeholder="Paste forum post and replies:
-
-Original Post by genealogyfan123:
-I'm looking for information about John Smith, born around 1845 in Kentucky. He married Mary Jones in 1870 in Pulaski County. Anyone have information about his parents?
-
-Reply by smithresearcher:
-I have a John Smith in my tree born 1845 in Pulaski County. Parents were William Smith and Sarah Brown. Let me know if this matches your family."></textarea>
-            </div>
-            <div class="form-group">
-                <label>Access Date:</label>
-                <input type="date" id="forum-accessed">
-            </div>
-            <div class="form-group">
-                <label>Storage Location:</label>
-                <input type="text" id="forum-storage" placeholder="Screenshot and HTML saved in research files">
-            </div>
-        </div>
-        
-        <!-- Video Call Notes Form -->
-        <div class="form-section" id="zoom-form">
-            <div class="form-group">
-                <label>Platform:</label>
-                <select id="zoom-platform">
-                    <option value="Zoom">Zoom</option>
-                    <option value="FaceTime">FaceTime</option>
-                    <option value="Skype">Skype</option>
-                    <option value="Google Meet">Google Meet</option>
-                    <option value="Microsoft Teams">Microsoft Teams</option>
-                    <option value="Other">Other</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label>Participants:</label>
-                <input type="text" id="zoom-participants" placeholder="Bernie Krause, Mary Smith, Robert Jones">
-            </div>
-            <div class="form-group">
-                <label>Date:</label>
-                <input type="date" id="zoom-date">
-            </div>
-            <div class="form-group">
-                <label>Time:</label>
-                <input type="time" id="zoom-time">
-            </div>
-            <div class="form-group">
-                <label>Duration:</label>
-                <input type="text" id="zoom-duration" placeholder="45 minutes">
-            </div>
-            <div class="form-group">
-                <label>Call Summary/Notes:</label>
-                <textarea id="zoom-content" placeholder="Summarize the video call conversation. Include key genealogical information discussed.
-
-Example:
-Video call with cousin Mary Smith to discuss Smith family history. Mary shared that her grandmother (Emma Smith Johnson, 1895-1975) told her the family came from County Cork, Ireland. Emma's parents were John Smith (b. 1860) and Margaret O'Brien Smith (b. 1862). Both immigrated around 1890.
-
-Mary mentioned she has photos of Emma and her siblings that she will scan and email. Also discussed potential DNA testing to confirm our relationship.
-
-Key takeaways:
-- John Smith birth year: 1860
-- Margaret O'Brien maiden name confirmed
-- Immigration: circa 1890
-- Origin: County Cork, Ireland"></textarea>
-            </div>
-            <div class="form-group">
-                <label>Recording Status:</label>
-                <select id="zoom-recorded">
-                    <option value="Not recorded">Not recorded</option>
-                    <option value="Recorded - permission granted">Recorded - permission granted</option>
-                    <option value="Recorded - notes only">Recorded - notes only</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label>Storage Location:</label>
-                <input type="text" id="zoom-storage" placeholder="Notes saved in research files; recording in personal archive">
-            </div>
-        </div>
-        
-        <button class="generate-btn" onclick="generateOutput()">Generate Transcription & Citation</button>
-        
-        <!-- Output Section -->
-        <div class="output-section" id="output">
-            <div class="output-box">
-                <h3>Formatted Transcription</h3>
-                <div class="output-text" id="transcription-output"></div>
-                <button class="copy-btn" onclick="copyOutput('transcription-output')">Copy to Clipboard</button>
+        <!-- Correspondence Details -->
+        <div class="section">
+            <h2>Correspondence Information</h2>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Correspondence Type: <span class="required">*</span></label>
+                    <select id="commType" required>
+                        <option value="">Select type...</option>
+                        <option value="Email">Email</option>
+                        <option value="Facebook Message">Facebook Message</option>
+                        <option value="Text Message">Text Message</option>
+                        <option value="WhatsApp">WhatsApp</option>
+                        <option value="LinkedIn Message">LinkedIn Message</option>
+                        <option value="Twitter/X DM">Twitter/X DM</option>
+                        <option value="Instagram DM">Instagram DM</option>
+                        <option value="Forum Post">Forum Post</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Subject Line:</label>
+                    <input type="text" id="subject" placeholder="Email subject or conversation topic">
+                </div>
             </div>
             
-            <div class="output-box">
-                <h3>Evidence Explained Citation</h3>
-                <div class="output-text" id="citation-output"></div>
-                <button class="copy-btn" onclick="copyOutput('citation-output')">Copy to Clipboard</button>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Primary Contact 1: <span class="required">*</span></label>
+                    <input type="text" id="contact1" placeholder="Name" required>
+                </div>
+                <div class="form-group">
+                    <label>Contact 1 Email/Handle:</label>
+                    <input type="text" id="contact1Email" placeholder="email@example.com or @username">
+                </div>
             </div>
             
-            <div class="output-box">
-                <h3>Complete Package for Airtable</h3>
-                <div class="output-text" id="airtable-output"></div>
-                <button class="copy-btn" onclick="copyOutput('airtable-output')">Copy to Clipboard</button>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Primary Contact 2:</label>
+                    <input type="text" id="contact2" placeholder="Name">
+                </div>
+                <div class="form-group">
+                    <label>Contact 2 Email/Handle:</label>
+                    <input type="text" id="contact2Email" placeholder="email@example.com or @username">
+                </div>
             </div>
+            
+            <div class="form-group">
+                <label>Additional Participants:</label>
+                <input type="text" id="additionalParticipants" placeholder="Other people in the conversation (comma-separated)">
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Conversation Start Date:</label>
+                    <input type="date" id="startDate">
+                </div>
+                <div class="form-group">
+                    <label>Conversation End Date:</label>
+                    <input type="date" id="endDate">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Message Thread -->
+        <div class="section">
+            <h2>Message Thread</h2>
+            
+            <div style="background: #fff8e7; padding: 10px; border-radius: 5px; font-size: 13px; margin-bottom: 20px;">
+                <strong>Tip:</strong> Add messages in chronological order. Include exact timestamps when available.
+            </div>
+            
+            <div id="messageThread"></div>
+            
+            <button class="add-message-btn" onclick="addMessage()">➕ Add New Message</button>
+        </div>
+        
+        <!-- Context & Notes -->
+        <div class="section">
+            <h2>Documentation & Context</h2>
+            
+            <div class="form-group">
+                <label>Archivist Name:</label>
+                <input type="text" id="archivist" placeholder="Your name">
+            </div>
+            
+            <div class="form-group">
+                <label>Archive Date:</label>
+                <input type="date" id="archiveDate">
+            </div>
+            
+            <div class="form-group">
+                <label>Relationship to Correspondents:</label>
+                <input type="text" id="relationship" placeholder="e.g., daughter, grandson, family historian">
+            </div>
+            
+            <div class="form-group">
+                <label>Genealogical Significance:</label>
+                <textarea id="significance" placeholder="Why is this correspondence important for family history research?" style="min-height: 80px;"></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label>Topics Discussed:</label>
+                <textarea id="topics" placeholder="Key subjects, family members mentioned, events discussed..." style="min-height: 80px;"></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label>Preservation Notes:</label>
+                <textarea id="preservation" placeholder="Screenshots taken, original platform, export method, backup locations..." style="min-height: 80px;"></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label>Additional Notes:</label>
+                <textarea id="notes" placeholder="Follow-up needed, related documents, privacy considerations..." style="min-height: 80px;"></textarea>
+            </div>
+        </div>
+        
+        <!-- Action Buttons -->
+        <div class="button-group">
+            <button onclick="generatePreview()">📄 Preview Archive</button>
+            <button onclick="printArchive()">🖨️ Print</button>
+            <button onclick="saveArchive()">💾 Save</button>
+            <button onclick="exportText()">📤 Export Text</button>
+            <button onclick="clearAll()">🗑️ Clear All</button>
+        </div>
+        
+        <!-- Preview Section -->
+        <div class="preview-section" id="preview">
+            <h2>Correspondence Archive</h2>
+            <div id="previewContent"></div>
         </div>
     </div>
     
     <script>
-        // Tab switching
-        document.querySelectorAll('.tab').forEach(tab => {
-            tab.addEventListener('click', function() {
-                const tabName = this.dataset.tab;
-                
-                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-                this.classList.add('active');
-                
-                document.querySelectorAll('.form-section').forEach(f => f.classList.remove('active'));
-                document.getElementById(tabName + '-form').classList.add('active');
-                
-                document.getElementById('output').classList.remove('show');
-            });
-        });
+        let messageCount = 0;
         
-        function get(id) {
-            return document.getElementById(id).value.trim();
+        function addMessage() {
+            messageCount++;
+            const container = document.getElementById('messageThread');
+            
+            const message = document.createElement('div');
+            message.className = 'thread-entry';
+            message.id = `message-${messageCount}`;
+            message.innerHTML = `
+                <div class="thread-header">
+                    <input type="text" id="sender-${messageCount}" placeholder="Sender name" style="width: 250px;">
+                    <div>
+                        <input type="date" id="msg-date-${messageCount}" style="width: 150px; display: inline-block;">
+                        <input type="time" id="msg-time-${messageCount}" style="width: 120px; display: inline-block; margin-left: 10px;">
+                        <button onclick="removeMessage(${messageCount})" style="background: #c44; padding: 5px 10px; font-size: 12px; margin-left: 10px;">✕</button>
+                    </div>
+                </div>
+                <textarea id="msg-text-${messageCount}" placeholder="Message content..." style="margin-top: 10px;"></textarea>
+                <input type="text" id="attachments-${messageCount}" placeholder="Attachments (comma-separated filenames)" style="margin-top: 10px; font-size: 12px;">
+            `;
+            
+            container.appendChild(message);
         }
         
-        function formatDate(dateString) {
-            if (!dateString) return '';
-            const date = new Date(dateString);
-            return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+        function removeMessage(id) {
+            const message = document.getElementById(`message-${id}`);
+            if (message && confirm('Remove this message?')) {
+                message.remove();
+            }
         }
         
-        function generateOutput() {
-            const activeTab = document.querySelector('.tab.active').dataset.tab;
-            const generators = {
-                email: generateEmail,
-                ancestry: generateAncestry,
-                text: generateText,
-                facebook: generateFacebook,
-                whatsapp: generateWhatsApp,
-                social: generateSocial,
-                forum: generateForum,
-                zoom: generateZoom
+        // Auto-save
+        setInterval(() => {
+            const contact1 = document.getElementById('contact1').value;
+            if (contact1.trim()) {
+                const data = collectFormData();
+                localStorage.setItem('correspondence_autosave', JSON.stringify(data));
+            }
+        }, 30000);
+        
+        function collectFormData() {
+            const messages = [];
+            for (let i = 1; i <= messageCount; i++) {
+                const textEl = document.getElementById(`msg-text-${i}`);
+                if (textEl && textEl.value.trim()) {
+                    messages.push({
+                        sender: document.getElementById(`sender-${i}`).value,
+                        date: document.getElementById(`msg-date-${i}`).value,
+                        time: document.getElementById(`msg-time-${i}`).value,
+                        text: textEl.value,
+                        attachments: document.getElementById(`attachments-${i}`).value
+                    });
+                }
+            }
+            
+            return {
+                commType: document.getElementById('commType').value,
+                subject: document.getElementById('subject').value,
+                contact1: document.getElementById('contact1').value,
+                contact1Email: document.getElementById('contact1Email').value,
+                contact2: document.getElementById('contact2').value,
+                contact2Email: document.getElementById('contact2Email').value,
+                additionalParticipants: document.getElementById('additionalParticipants').value,
+                startDate: document.getElementById('startDate').value,
+                endDate: document.getElementById('endDate').value,
+                archivist: document.getElementById('archivist').value,
+                archiveDate: document.getElementById('archiveDate').value,
+                relationship: document.getElementById('relationship').value,
+                significance: document.getElementById('significance').value,
+                topics: document.getElementById('topics').value,
+                preservation: document.getElementById('preservation').value,
+                notes: document.getElementById('notes').value,
+                messages: messages
             };
-            
-            generators[activeTab]();
-            document.getElementById('output').classList.add('show');
-            document.getElementById('output').scrollIntoView({ behavior: 'smooth' });
         }
         
-        function generateEmail() {
-            const from = get('email-from');
-            const to = get('email-to');
-            const subject = get('email-subject');
-            const date = formatDate(get('email-date'));
-            const time = get('email-time');
-            const content = get('email-content');
-            const attachments = get('email-attachments');
-            const storage = get('email-storage');
+        function generatePreview() {
+            const data = collectFormData();
             
-            // Transcription
-            let trans = '=== EMAIL CORRESPONDENCE ===\n\n';
-            trans += 'From: ' + from + '\n';
-            trans += 'To: ' + to + '\n';
-            trans += 'Subject: ' + subject + '\n';
-            trans += 'Date: ' + date;
-            if (time) trans += ' at ' + time;
-            trans += '\n';
-            if (attachments) trans += 'Attachments: ' + attachments + '\n';
-            trans += '\n--- MESSAGE CONTENT ---\n\n';
-            trans += content;
-            trans += '\n\n--- END MESSAGE ---';
-            if (storage) trans += '\n\nStorage: ' + storage;
+            if (!data.contact1 || data.messages.length === 0) {
+                alert('Please enter at least one contact and one message.');
+                return;
+            }
             
-            // Citation (Evidence Explained format for email)
-            let cite = 'First Reference Note:\n';
-            cite += from + ', email to ' + to;
-            cite += ', "' + subject + '," ' + date;
-            if (storage) cite += '; ' + storage;
-            cite += '.\n\n';
-            cite += 'Subsequent Note:\n';
-            cite += from + ', email to ' + to + ', ' + date + '.\n\n';
-            cite += 'Source List Entry:\n';
-            cite += from + '. Email to ' + to + '. "' + subject + '." ' + date;
-            if (storage) cite += '. ' + storage;
-            cite += '.';
+            let html = '<div class="preview-metadata">';
+            html += `<p><strong>Type:</strong> ${data.commType || 'Not specified'}</p>`;
+            if (data.subject) html += `<p><strong>Subject:</strong> ${data.subject}</p>`;
+            html += `<p><strong>Participants:</strong> ${data.contact1}`;
+            if (data.contact1Email) html += ` (${data.contact1Email})`;
+            if (data.contact2) {
+                html += `, ${data.contact2}`;
+                if (data.contact2Email) html += ` (${data.contact2Email})`;
+            }
+            if (data.additionalParticipants) html += `, ${data.additionalParticipants}`;
+            html += '</p>';
+            if (data.startDate) html += `<p><strong>Date Range:</strong> ${data.startDate}`;
+            if (data.endDate) html += ` to ${data.endDate}`;
+            if (data.startDate || data.endDate) html += '</p>';
+            if (data.archivist) html += `<p><strong>Archived by:</strong> ${data.archivist}</p>`;
+            if (data.archiveDate) html += `<p><strong>Archive Date:</strong> ${data.archiveDate}</p>`;
+            if (data.relationship) html += `<p><strong>Relationship:</strong> ${data.relationship}</p>`;
+            html += '</div>';
             
-            // Airtable
-            let airtable = '=== DIGITAL CORRESPONDENCE PACKAGE ===\n\n';
-            airtable += 'TYPE: Email\n';
-            airtable += 'FROM: ' + from + '\n';
-            airtable += 'DATE: ' + date + '\n\n';
-            airtable += '--- TRANSCRIPTION ---\n' + trans + '\n\n';
-            airtable += '--- CITATION ---\n' + cite;
+            if (data.significance) {
+                html += `<div style="background: #f9f6f0; padding: 15px; border-radius: 5px; margin-bottom: 20px;">`;
+                html += `<strong>Genealogical Significance:</strong><br>${data.significance}`;
+                html += '</div>';
+            }
             
-            document.getElementById('transcription-output').textContent = trans;
-            document.getElementById('citation-output').textContent = cite;
-            document.getElementById('airtable-output').textContent = airtable;
-        }
-        
-        function generateAncestry() {
-            const from = get('ancestry-from');
-            const fromName = get('ancestry-fromname');
-            const to = get('ancestry-to');
-            const subject = get('ancestry-subject');
-            const date = formatDate(get('ancestry-date'));
-            const content = get('ancestry-content');
-            const connection = get('ancestry-connection');
-            const match = get('ancestry-match');
-            const storage = get('ancestry-storage');
+            if (data.topics) {
+                html += `<div style="background: #f9f6f0; padding: 15px; border-radius: 5px; margin-bottom: 20px;">`;
+                html += `<strong>Topics Discussed:</strong><br>${data.topics}`;
+                html += '</div>';
+            }
             
-            const sender = fromName ? fromName + ' (' + from + ')' : from;
+            html += '<div class="preview-thread">';
+            html += '<h3 style="color: #5c4033; margin-bottom: 15px;">Message Thread</h3>';
             
-            let trans = '=== ANCESTRY.COM MESSAGE ===\n\n';
-            trans += 'From: ' + sender + '\n';
-            trans += 'To: ' + to + '\n';
-            trans += 'Subject: ' + subject + '\n';
-            trans += 'Date: ' + date + '\n';
-            trans += 'Connection: ' + connection + '\n';
-            if (match) trans += 'Match Details: ' + match + '\n';
-            trans += '\n--- MESSAGE CONTENT ---\n\n';
-            trans += content;
-            trans += '\n\n--- END MESSAGE ---';
-            if (storage) trans += '\n\nStorage: ' + storage;
-            
-            let cite = 'First Reference Note:\n';
-            cite += sender + ', message to ' + to;
-            cite += ', "' + subject + '," ' + date;
-            cite += '; Ancestry.com';
-            if (match) cite += '; ' + match;
-            if (storage) cite += '; ' + storage;
-            cite += '.\n\n';
-            cite += 'Subsequent Note:\n';
-            cite += sender + ', Ancestry.com message, ' + date + '.\n\n';
-            cite += 'Source List Entry:\n';
-            cite += sender + '. Message to ' + to + '. "' + subject + '." ' + date + '. Ancestry.com';
-            if (storage) cite += '. ' + storage;
-            cite += '.';
-            
-            let airtable = '=== DIGITAL CORRESPONDENCE PACKAGE ===\n\n';
-            airtable += 'TYPE: Ancestry.com Message\n';
-            airtable += 'FROM: ' + sender + '\n';
-            airtable += 'DATE: ' + date + '\n\n';
-            airtable += '--- TRANSCRIPTION ---\n' + trans + '\n\n';
-            airtable += '--- CITATION ---\n' + cite;
-            
-            document.getElementById('transcription-output').textContent = trans;
-            document.getElementById('citation-output').textContent = cite;
-            document.getElementById('airtable-output').textContent = airtable;
-        }
-        
-        function generateText() {
-            const person = get('text-person');
-            const numbers = get('text-numbers');
-            const date = formatDate(get('text-date'));
-            const type = get('text-type');
-            const content = get('text-content');
-            const attachments = get('text-attachments');
-            const storage = get('text-storage');
-            
-            let trans = '=== TEXT MESSAGE CONVERSATION ===\n\n';
-            trans += 'Conversation with: ' + person + '\n';
-            if (numbers) trans += 'Phone numbers: ' + numbers + '\n';
-            trans += 'Date: ' + date + '\n';
-            trans += 'Format: ' + type + '\n';
-            if (attachments) trans += 'Attachments shared: ' + attachments + '\n';
-            trans += '\n--- CONVERSATION THREAD ---\n\n';
-            trans += content;
-            trans += '\n\n--- END CONVERSATION ---';
-            if (storage) trans += '\n\nStorage: ' + storage;
-            
-            let cite = 'First Reference Note:\n';
-            cite += person + ', text message conversation, ' + date;
-            cite += '; ' + type;
-            if (storage) cite += '; ' + storage;
-            cite += '.\n\n';
-            cite += 'Subsequent Note:\n';
-            cite += person + ', text message, ' + date + '.\n\n';
-            cite += 'Source List Entry:\n';
-            cite += person + '. Text message conversation. ' + date + '. ' + type;
-            if (storage) cite += '. ' + storage;
-            cite += '.';
-            
-            let airtable = '=== DIGITAL CORRESPONDENCE PACKAGE ===\n\n';
-            airtable += 'TYPE: Text Message\n';
-            airtable += 'WITH: ' + person + '\n';
-            airtable += 'DATE: ' + date + '\n\n';
-            airtable += '--- TRANSCRIPTION ---\n' + trans + '\n\n';
-            airtable += '--- CITATION ---\n' + cite;
-            
-            document.getElementById('transcription-output').textContent = trans;
-            document.getElementById('citation-output').textContent = cite;
-            document.getElementById('airtable-output').textContent = airtable;
-        }
-        
-        function generateFacebook() {
-            const from = get('facebook-from');
-            const to = get('facebook-to');
-            const platform = get('facebook-platform');
-            const date = formatDate(get('facebook-date'));
-            const content = get('facebook-content');
-            const group = get('facebook-group');
-            const storage = get('facebook-storage');
-            
-            let trans = '=== FACEBOOK CORRESPONDENCE ===\n\n';
-            trans += 'From: ' + from + '\n';
-            trans += 'To: ' + to + '\n';
-            trans += 'Platform: ' + platform + '\n';
-            if (group) trans += 'Group/Page: ' + group + '\n';
-            trans += 'Date: ' + date + '\n';
-            trans += '\n--- MESSAGE/POST CONTENT ---\n\n';
-            trans += content;
-            trans += '\n\n--- END ---';
-            if (storage) trans += '\n\nStorage: ' + storage;
-            
-            let cite = 'First Reference Note:\n';
-            cite += from + ', ' + platform.toLowerCase();
-            if (group) cite += ' in "' + group + '"';
-            cite += ' to ' + to + ', ' + date;
-            if (storage) cite += '; ' + storage;
-            cite += '.\n\n';
-            cite += 'Subsequent Note:\n';
-            cite += from + ', ' + platform + ', ' + date + '.\n\n';
-            cite += 'Source List Entry:\n';
-            cite += from + '. ' + platform;
-            if (group) cite += ', "' + group + '"';
-            cite += '. ' + date;
-            if (storage) cite += '. ' + storage;
-            cite += '.';
-            
-            let airtable = '=== DIGITAL CORRESPONDENCE PACKAGE ===\n\n';
-            airtable += 'TYPE: ' + platform + '\n';
-            airtable += 'FROM: ' + from + '\n';
-            airtable += 'DATE: ' + date + '\n\n';
-            airtable += '--- TRANSCRIPTION ---\n' + trans + '\n\n';
-            airtable += '--- CITATION ---\n' + cite;
-            
-            document.getElementById('transcription-output').textContent = trans;
-            document.getElementById('citation-output').textContent = cite;
-            document.getElementById('airtable-output').textContent = airtable;
-        }
-        
-        function generateWhatsApp() {
-            const person = get('whatsapp-person');
-            const numbers = get('whatsapp-numbers');
-            const date = formatDate(get('whatsapp-date'));
-            const type = get('whatsapp-type');
-            const group = get('whatsapp-group');
-            const content = get('whatsapp-content');
-            const storage = get('whatsapp-storage');
-            
-            let trans = '=== WHATSAPP CONVERSATION ===\n\n';
-            trans += 'Chat with: ' + person + '\n';
-            if (numbers) trans += numbers + '\n';
-            trans += 'Chat type: ' + type + '\n';
-            if (group) trans += 'Group name: ' + group + '\n';
-            trans += 'Date: ' + date + '\n';
-            trans += '\n--- CHAT TRANSCRIPT ---\n\n';
-            trans += content;
-            trans += '\n\n--- END CHAT ---';
-            if (storage) trans += '\n\nStorage: ' + storage;
-            
-            let cite = 'First Reference Note:\n';
-            cite += person + ', WhatsApp ' + type.toLowerCase();
-            if (group) cite += ' ("' + group + '")';
-            cite += ', ' + date;
-            if (storage) cite += '; ' + storage;
-            cite += '.\n\n';
-            cite += 'Subsequent Note:\n';
-            cite += person + ', WhatsApp chat, ' + date + '.\n\n';
-            cite += 'Source List Entry:\n';
-            cite += person + '. WhatsApp ' + type;
-            if (group) cite += ', "' + group + '"';
-            cite += '. ' + date;
-            if (storage) cite += '. ' + storage;
-            cite += '.';
-            
-            let airtable = '=== DIGITAL CORRESPONDENCE PACKAGE ===\n\n';
-            airtable += 'TYPE: WhatsApp\n';
-            airtable += 'WITH: ' + person + '\n';
-            airtable += 'DATE: ' + date + '\n\n';
-            airtable += '--- TRANSCRIPTION ---\n' + trans + '\n\n';
-            airtable += '--- CITATION ---\n' + cite;
-            
-            document.getElementById('transcription-output').textContent = trans;
-            document.getElementById('citation-output').textContent = cite;
-            document.getElementById('airtable-output').textContent = airtable;
-        }
-        
-        function generateSocial() {
-            const platform = get('social-platform');
-            const from = get('social-from');
-            const fromName = get('social-fromname');
-            const to = get('social-to');
-            const date = formatDate(get('social-date'));
-            const content = get('social-content');
-            const storage = get('social-storage');
-            
-            const sender = fromName ? fromName + ' (' + from + ')' : from;
-            
-            let trans = '=== ' + platform.toUpperCase() + ' DIRECT MESSAGE ===\n\n';
-            trans += 'From: ' + sender + '\n';
-            trans += 'To: ' + to + '\n';
-            trans += 'Platform: ' + platform + '\n';
-            trans += 'Date: ' + date + '\n';
-            trans += '\n--- MESSAGE CONTENT ---\n\n';
-            trans += content;
-            trans += '\n\n--- END MESSAGE ---';
-            if (storage) trans += '\n\nStorage: ' + storage;
-            
-            let cite = 'First Reference Note:\n';
-            cite += sender + ', ' + platform + ' direct message to ' + to;
-            cite += ', ' + date;
-            if (storage) cite += '; ' + storage;
-            cite += '.\n\n';
-            cite += 'Subsequent Note:\n';
-            cite += sender + ', ' + platform + ' message, ' + date + '.\n\n';
-            cite += 'Source List Entry:\n';
-            cite += sender + '. ' + platform + ' direct message to ' + to + '. ' + date;
-            if (storage) cite += '. ' + storage;
-            cite += '.';
-            
-            let airtable = '=== DIGITAL CORRESPONDENCE PACKAGE ===\n\n';
-            airtable += 'TYPE: ' + platform + ' DM\n';
-            airtable += 'FROM: ' + sender + '\n';
-            airtable += 'DATE: ' + date + '\n\n';
-            airtable += '--- TRANSCRIPTION ---\n' + trans + '\n\n';
-            airtable += '--- CITATION ---\n' + cite;
-            
-            document.getElementById('transcription-output').textContent = trans;
-            document.getElementById('citation-output').textContent = cite;
-            document.getElementById('airtable-output').textContent = airtable;
-        }
-        
-        function generateForum() {
-            const forumName = get('forum-name');
-            const thread = get('forum-thread');
-            const poster = get('forum-poster');
-            const posterName = get('forum-postername');
-            const date = formatDate(get('forum-date'));
-            const url = get('forum-url');
-            const content = get('forum-content');
-            const accessed = formatDate(get('forum-accessed'));
-            const storage = get('forum-storage');
-            
-            const author = posterName ? posterName + ' (' + poster + ')' : poster;
-            
-            let trans = '=== FORUM/MESSAGE BOARD POST ===\n\n';
-            trans += 'Forum: ' + forumName + '\n';
-            trans += 'Thread: ' + thread + '\n';
-            trans += 'Posted by: ' + author + '\n';
-            trans += 'Date posted: ' + date + '\n';
-            if (url) trans += 'URL: ' + url + '\n';
-            if (accessed) trans += 'Accessed: ' + accessed + '\n';
-            trans += '\n--- THREAD CONTENT ---\n\n';
-            trans += content;
-            trans += '\n\n--- END THREAD ---';
-            if (storage) trans += '\n\nStorage: ' + storage;
-            
-            let cite = 'First Reference Note:\n';
-            cite += author + ', "' + thread + '," posted ' + date;
-            cite += '; ' + forumName;
-            if (url) cite += ' (' + url;
-            if (accessed) cite += ' : accessed ' + accessed;
-            if (url) cite += ')';
-            if (storage) cite += '; ' + storage;
-            cite += '.\n\n';
-            cite += 'Subsequent Note:\n';
-            cite += author + ', "' + thread + '," ' + forumName + ', ' + date + '.\n\n';
-            cite += 'Source List Entry:\n';
-            cite += forumName + '. "' + thread + '." Posted by ' + author + '. ' + date;
-            if (url) cite += '. ' + url;
-            if (storage) cite += '. ' + storage;
-            cite += '.';
-            
-            let airtable = '=== DIGITAL CORRESPONDENCE PACKAGE ===\n\n';
-            airtable += 'TYPE: Forum Post\n';
-            airtable += 'FORUM: ' + forumName + '\n';
-            airtable += 'DATE: ' + date + '\n\n';
-            airtable += '--- TRANSCRIPTION ---\n' + trans + '\n\n';
-            airtable += '--- CITATION ---\n' + cite;
-            
-            document.getElementById('transcription-output').textContent = trans;
-            document.getElementById('citation-output').textContent = cite;
-            document.getElementById('airtable-output').textContent = airtable;
-        }
-        
-        function generateZoom() {
-            const platform = get('zoom-platform');
-            const participants = get('zoom-participants');
-            const date = formatDate(get('zoom-date'));
-            const time = get('zoom-time');
-            const duration = get('zoom-duration');
-            const content = get('zoom-content');
-            const recorded = get('zoom-recorded');
-            const storage = get('zoom-storage');
-            
-            let trans = '=== VIDEO CALL NOTES ===\n\n';
-            trans += 'Platform: ' + platform + '\n';
-            trans += 'Participants: ' + participants + '\n';
-            trans += 'Date: ' + date;
-            if (time) trans += ' at ' + time;
-            trans += '\n';
-            if (duration) trans += 'Duration: ' + duration + '\n';
-            trans += 'Recording status: ' + recorded + '\n';
-            trans += '\n--- CALL NOTES/SUMMARY ---\n\n';
-            trans += content;
-            trans += '\n\n--- END NOTES ---';
-            if (storage) trans += '\n\nStorage: ' + storage;
-            
-            let cite = 'First Reference Note:\n';
-            cite += platform + ' video call with ' + participants;
-            cite += ', ' + date;
-            if (recorded !== 'Not recorded') cite += '; ' + recorded;
-            if (storage) cite += '; ' + storage;
-            cite += '.\n\n';
-            cite += 'Subsequent Note:\n';
-            cite += platform + ' call, ' + date + '.\n\n';
-            cite += 'Source List Entry:\n';
-            cite += platform + ' video call. Participants: ' + participants + '. ' + date;
-            if (storage) cite += '. ' + storage;
-            cite += '.';
-            
-            let airtable = '=== DIGITAL CORRESPONDENCE PACKAGE ===\n\n';
-            airtable += 'TYPE: Video Call Notes\n';
-            airtable += 'PLATFORM: ' + platform + '\n';
-            airtable += 'DATE: ' + date + '\n\n';
-            airtable += '--- TRANSCRIPTION ---\n' + trans + '\n\n';
-            airtable += '--- CITATION ---\n' + cite;
-            
-            document.getElementById('transcription-output').textContent = trans;
-            document.getElementById('citation-output').textContent = cite;
-            document.getElementById('airtable-output').textContent = airtable;
-        }
-        
-        function copyOutput(elementId) {
-            const text = document.getElementById(elementId).textContent;
-            
-            navigator.clipboard.writeText(text).then(() => {
-                const btn = event.target;
-                const originalText = btn.textContent;
-                btn.textContent = 'Copied!';
-                setTimeout(() => {
-                    btn.textContent = originalText;
-                }, 2000);
+            data.messages.forEach((msg, index) => {
+                html += '<div class="preview-message">';
+                html += `<div class="preview-message-header">From: ${msg.sender || 'Unknown Sender'}</div>`;
+                html += '<div class="preview-message-meta">';
+                if (msg.date) html += `Date: ${msg.date}`;
+                if (msg.time) html += ` at ${msg.time}`;
+                html += '</div>';
+                html += `<div class="preview-message-body">${msg.text.replace(/\n/g, '<br>')}</div>`;
+                if (msg.attachments) {
+                    html += `<div class="attachment-list">📎 Attachments: ${msg.attachments}</div>`;
+                }
+                html += '</div>';
             });
+            html += '</div>';
+            
+            if (data.preservation) {
+                html += `<div style="background: #fff8e7; padding: 15px; border-radius: 5px; margin-top: 20px;">`;
+                html += `<strong>Preservation Notes:</strong><br>${data.preservation}`;
+                html += '</div>';
+            }
+            
+            if (data.notes) {
+                html += `<div style="background: #fff8e7; padding: 15px; border-radius: 5px; margin-top: 15px;">`;
+                html += `<strong>Additional Notes:</strong><br>${data.notes}`;
+                html += '</div>';
+            }
+            
+            document.getElementById('previewContent').innerHTML = html;
+            document.getElementById('preview').classList.add('active');
+            document.getElementById('preview').scrollIntoView({ behavior: 'smooth' });
         }
+        
+        function printArchive() {
+            if (!document.getElementById('preview').classList.contains('active')) {
+                generatePreview();
+                setTimeout(() => window.print(), 500);
+            } else {
+                window.print();
+            }
+        }
+        
+        function saveArchive() {
+            const data = collectFormData();
+            const fileName = `correspondence_${data.contact1.replace(/\s+/g, '_')}_${Date.now()}`;
+            localStorage.setItem(fileName, JSON.stringify(data));
+            alert('Correspondence archive saved successfully!');
+        }
+        
+        function exportText() {
+            const data = collectFormData();
+            if (data.messages.length === 0) {
+                alert('No messages to export.');
+                return;
+            }
+            
+            let text = `DIGITAL CORRESPONDENCE ARCHIVE\n\n`;
+            text += `Type: ${data.commType}\n`;
+            if (data.subject) text += `Subject: ${data.subject}\n`;
+            text += `Participants: ${data.contact1}`;
+            if (data.contact2) text += `, ${data.contact2}`;
+            if (data.additionalParticipants) text += `, ${data.additionalParticipants}`;
+            text += `\n`;
+            if (data.startDate) text += `Date Range: ${data.startDate}`;
+            if (data.endDate) text += ` to ${data.endDate}`;
+            if (data.startDate || data.endDate) text += `\n`;
+            text += `\n${'='.repeat(60)}\n\n`;
+            
+            data.messages.forEach((msg, index) => {
+                text += `MESSAGE ${index + 1}\n`;
+                text += `From: ${msg.sender || 'Unknown'}\n`;
+                if (msg.date) text += `Date: ${msg.date}`;
+                if (msg.time) text += ` ${msg.time}`;
+                if (msg.date || msg.time) text += `\n`;
+                text += `\n${msg.text}\n`;
+                if (msg.attachments) text += `\nAttachments: ${msg.attachments}\n`;
+                text += `\n${'-'.repeat(60)}\n\n`;
+            });
+            
+            if (data.significance) {
+                text += `\nGENEALOGICAL SIGNIFICANCE:\n${data.significance}\n`;
+            }
+            
+            const blob = new Blob([text], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `correspondence_${data.contact1.replace(/\s+/g, '_')}.txt`;
+            a.click();
+        }
+        
+        function clearAll() {
+            if (confirm('Clear all data? This cannot be undone.')) {
+                document.querySelectorAll('input[type="text"], input[type="email"], input[type="date"], input[type="time"], textarea, select').forEach(el => {
+                    el.value = '';
+                });
+                document.getElementById('messageThread').innerHTML = '';
+                document.getElementById('preview').classList.remove('active');
+                messageCount = 0;
+            }
+        }
+        
+        // Add initial message on load
+        addMessage();
     </script>
 </body>
 </html>
